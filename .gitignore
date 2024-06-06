@@ -1,0 +1,13 @@
+# Created by https://www.toptal.com/developers/gitignore/api/macos
+# Edit at https://www.toptal.com/developers/gitignore?templates=macos
+
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+scripts
+ndoe_modules
+docs/.vitepress/cache
+docs/.vitepress/dist
+
