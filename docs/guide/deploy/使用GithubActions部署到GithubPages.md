@@ -4,19 +4,24 @@
 
 ## 新加token
 
-在Github个人信息中选择settings > 选择Developer Settings（最后一行）> Personal access tokens下选择Fine-grained tokens > 点击Generate new token
+操作路径：
+
+1. 在Github个人信息中选择settings
+2. 选择Developer Settings
+3. Personal access tokens下选择Fine-grained tokens
+4. 点击Generate new token
 
 ## 使用token
 
-项目设置settings > 选择Secrets and variables中的actions > 点击New repository secret
-
-这里token名称为ACCESS_TOKEN（如果不用这个名字，后面脚本里的变量名也要跟着改）
+1. 项目设置settings
+2. 选择Secrets and variables中的actions
+3. 点击New repository secret
 
 ## 创建*.yml配置文件
 
 在github上搜索github-pages-deploy-action并根据文档进行配置
 
-然后在项目根目录下创建 .github/workflows/deploy.yml 文件
+然后在项目根目录下创建 `.github/workflows/deploy.yml` 文件
 
 ```yml
 name: VitePress CI/CD
@@ -67,4 +72,4 @@ jobs:
 
 ## 提交代码
 
-将应用代码提交到github远程仓库
+将应用代码提交到github远程仓库，Github发现项目中存在`.github/workflows/*.yml`配置文件时，将触发GithubActions并根据配置文件执行相应的操作实现部署

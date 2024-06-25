@@ -1,8 +1,8 @@
-import { formatter } from '../../../utils/formatter'
+import { formatter } from "../../../utils/formatter";
 import {
   // series
-  algorithmSeries,
-  patternSeries,
+  webAlgorithm,
+  webPattern,
   // guide
   jsGuide,
   regexGuide,
@@ -15,23 +15,23 @@ import {
   webSafe,
   // style
   webStyle,
-} from './sidebars';
+} from "./sidebars";
 
 export default {
   // 数据结构与算法
-  '/algorithm/': formatter(algorithmSeries),
+  "/algorithm/": formatter(webAlgorithm),
   // 设计模式
-  '/pattern/': formatter(patternSeries),
+  "/pattern/": formatter(webPattern),
   // 性能优化
-  '/performance/': formatter(webPerformance),
-  '/performance-geek/': formatter(geekPerformanceSeries),
+  "/performance/": formatter(webPerformance),
+  "/performance-geek/": formatter(geekPerformanceSeries),
   // 前端安全
-  '/safe/': formatter(webSafe),
+  "/safe/": formatter(webSafe),
   // 前端规范
-  '/style/': formatter(webStyle),
+  "/style/": formatter(webStyle),
   // 开发指南
-  '/guide/js/': formatter(jsGuide),
-  '/guide/regexp/': formatter(regexGuide),
-  '/guide/deploy/': formatter(deployGuide),
-  '/guide/cli/': formatter(cliGuide),
-}
+  "/guide/js/": formatter(jsGuide),
+  "/guide/regexp/": formatter(regexGuide),
+  "/guide/deploy/": formatter(deployGuide),
+  "/guide/cli/": formatter(cliGuide),
+};
