@@ -130,35 +130,34 @@ function Editor() {
 // 初始化参数，渲染页面
 function HtmlInit() {}
 // 初始化样式
-HtmlInit.prototype.initStyle = function() {}     
+HtmlInit.prototype.initStyle = function () {};
 // 渲染DOM
-HtmlInit.prototype.renderDom = function() {}     
+HtmlInit.prototype.renderDom = function () {};
 
 // 字体控制器
 function FontController() {}
 // 改变字体颜色
-FontController.prototype.changeFontColor = function() {}    
+FontController.prototype.changeFontColor = function () {};
 // 改变字体大小
-FontController.prototype.changeFontSize = function() {}     
+FontController.prototype.changeFontSize = function () {};
 
 // 状态控制器
 function StateController(fontController) {
-  this.states = [];       // 一个数组，存储所有状态
-  this.currentState = 0;  // 一个指针，指向当前状态
-  this.fontController = fontController;    // 将字体管理器注入，便于改变状态的时候改变字体
+  this.states = []; // 一个数组，存储所有状态
+  this.currentState = 0; // 一个指针，指向当前状态
+  this.fontController = fontController; // 将字体管理器注入，便于改变状态的时候改变字体
 }
 // 保存状态
-StateController.prototype.saveState = function() {}     
+StateController.prototype.saveState = function () {};
 // 后退状态
-StateController.prototype.backState = function() {
+StateController.prototype.backState = function () {
   // 取出上一个状态
-  var state = this.states[this.currentState - 1];  
+  var state = this.states[this.currentState - 1];
   // 改回上次颜色
-  this.fontController.changeFontColor(state.color);  
+  this.fontController.changeFontColor(state.color);
   // 改回上次大小
-  this.fontController.changeFontSize(state.size);    
-}
+  this.fontController.changeFontSize(state.size);
+};
 // 前进状态
-StateController.prototype.forwardState = function() {}     
-
+StateController.prototype.forwardState = function () {};
 ```

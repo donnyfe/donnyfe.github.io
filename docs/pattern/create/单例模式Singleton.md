@@ -10,15 +10,15 @@
 
 ```ts
 class SingleTon {
-  private constructor() { }
-  
-  private static instance: SingleTon | null
+  private constructor() {}
+
+  private static instance: SingleTon | null;
 
   static getInstance(): SingleTon {
     if (SingleTon.instance == null) {
-      SingleTon.instance = new SingleTon()
+      SingleTon.instance = new SingleTon();
     }
-    return SingleTon.instance
+    return SingleTon.instance;
   }
 }
 ```
@@ -31,8 +31,7 @@ let Singleton = (function () {
 
   function init() {
     // 私有变量
-    let privateVariable = "Im also private";
- 　　// 私有方法
+    let privateVariable = "Im also private"; // 私有方法
     function privateMethod() {
       console.log("I am private");
     }
@@ -46,18 +45,18 @@ let Singleton = (function () {
       },
       getRandomNumber: function () {
         return Math.random();
-      }
+      },
     };
-  };
+  }
 
   return {
-  　// 获取Singleton的实例，如果存在就返回，不存在就创建新实例
+    // 获取Singleton的实例，如果存在就返回，不存在就创建新实例
     getInstance: function () {
       if (!instance) {
         instance = init();
       }
       return instance;
-    }
+    },
   };
 })();
 ```
@@ -65,26 +64,26 @@ let Singleton = (function () {
 ## 应用场景
 
 - 登录弹窗
-- 自定义事件EventBus
+- 自定义事件 EventBus
 - vue-router
-- Vuex、Redux的store
+- Vuex、Redux 的 store
 
-### 全局数据存储对象Store
+### 全局数据存储对象 Store
 
 ```js
 function Store() {
   // 加一个instanceof检测
-  if(!(this instanceof store)) {
+  if (!(this instanceof store)) {
     return new store();
   }
-  if(store.instance) {
+  if (store.instance) {
     return store.instance;
   }
   store.instance = this;
 }
 
 // 调用方式
-new Store()
+new Store();
 // 调用方式
-Store()
+Store();
 ```

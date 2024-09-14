@@ -20,16 +20,16 @@ class PubSub {
     // 一个对象存放所有的消息订阅
     // 每个消息对应一个数组，数组结构如下
     // { "event1": [cb1, cb2] }
-    this.events = {}
+    this.events = {};
   }
 
   subscribe(event, callback) {
-    if(this.events[event]) {
+    if (this.events[event]) {
       // 如果有人订阅过了，这个键已经存在，就往里面加就好了
       this.events[event].push(callback);
     } else {
       // 没人订阅过，就建一个数组，回调放进去
-      this.events[event] = [callback]
+      this.events[event] = [callback];
     }
   }
 
@@ -37,8 +37,8 @@ class PubSub {
     // 取出所有订阅者的回调执行
     const subscribedEvents = this.events[event];
 
-    if(subscribedEvents && subscribedEvents.length) {
-      subscribedEvents.forEach(callback => {
+    if (subscribedEvents && subscribedEvents.length) {
+      subscribedEvents.forEach((callback) => {
         callback.call(this, ...args);
       });
     }
@@ -48,17 +48,16 @@ class PubSub {
     // 删除某个订阅，保留其他订阅
     const subscribedEvents = this.events[event];
 
-    if(subscribedEvents && subscribedEvents.length) {
-      this.events[event] = this.events[event].filter(cb => cb !== callback)
+    if (subscribedEvents && subscribedEvents.length) {
+      this.events[event] = this.events[event].filter((cb) => cb !== callback);
     }
   }
 }
 
 // 使用的时候
 const pubSub = new PubSub();
-pubSub.subscribe('event1', () => {});    // 注册事件
-pubSub.publish('event1');                // 发布事件
-
+pubSub.subscribe("event1", () => {}); // 注册事件
+pubSub.publish("event1"); // 发布事件
 ```
 
 ### 闭包实现
@@ -138,10 +137,10 @@ const pubSub = new PubSub();
 const domArr = [];
 function initHTML(target) {
   // 总共10个可选奖品，也就是10个DIV
-  for(let i = 0; i < 10; i++) {
-    let div = document.createElement('div');
+  for (let i = 0; i < 10; i++) {
+    let div = document.createElement("div");
     div.innerHTML = i;
-    div.setAttribute('class', 'item');
+    div.setAttribute("class", "item");
     target.appendChild(div);
     domArr.push(div);
   }
@@ -161,25 +160,25 @@ function move(moveConfig) {
   //   speed: 50      // 本圈速度
   // }
   let current = 0; // 当前位置
-  let lastIndex = 9;   // 上个位置
+  let lastIndex = 9; // 上个位置
 
   const timer = setInterval(() => {
     // 每次移动给当前元素加上边框,移除上一个的边框
-    if(current !== 0) {
+    if (current !== 0) {
       lastIndex = current - 1;
     }
 
-    domArr[lastIndex].setAttribute('class', 'item');
-    domArr[current].setAttribute('class', 'item item-on');
+    domArr[lastIndex].setAttribute("class", "item");
+    domArr[current].setAttribute("class", "item item-on");
 
     current++;
 
-    if(current === moveConfig.times) {
+    if (current === moveConfig.times) {
       clearInterval(timer);
 
       // 转完了一圈广播事件
-      if(moveConfig.times === 10) {
-        pubSub.publish('finish');
+      if (moveConfig.times === 10) {
+        pubSub.publish("finish");
       }
     }
   }, moveConfig.speed);
@@ -190,21 +189,21 @@ function moveController() {
   let allTimes = getFinal();
   let circles = Math.floor(allTimes / 10, 0);
   let stopNum = allTimes % circles;
-  let speed = 250;  
+  let speed = 250;
   let ranCircle = 0;
 
   move({
     times: 10,
-    speed
-  });    // 手动开启第一次旋转
+    speed,
+  }); // 手动开启第一次旋转
 
   // 监听事件，每次旋转完成自动开启下一次旋转
-  pubSub.subscribe('finish', () => {
+  pubSub.subscribe("finish", () => {
     let time = 0;
     speed -= 50;
     ranCircle++;
 
-    if(ranCircle <= circles) {
+    if (ranCircle <= circles) {
       time = 10;
     } else {
       time = stopNum;
@@ -213,14 +212,13 @@ function moveController() {
     move({
       times: time,
       speed,
-    })
+    });
   });
 }
 
 // 绘制页面，开始转动
-initHTML(document.getElementById('root'));
+initHTML(document.getElementById("root"));
 moveController();
-
 ```
 
 ### 师生讲课
@@ -229,38 +227,38 @@ moveController();
 // 对象间解耦
 
 // 学生类
-var student = function(result) {
+var student = function (result) {
   var that = this;
 
   // 学生回答结果
   this.result = result;
 
   // 学生回答问题动作
-  this.say = function() {
+  this.say = function () {
     console.log(that.result);
-  }
+  };
 };
 
 // 回答问题方法
-student.prototype.answer = function(question) {
+student.prototype.answer = function (question) {
   // 注册参数问题
   observer.regist(question, this.say);
-}
+};
 
 // 学生呼呼睡觉，此时不能回答问题
-student.prototype.sleep = function(question) {
-  console.log(this.result + ' ' + question + ' 己被注销')
+student.prototype.sleep = function (question) {
+  console.log(this.result + " " + question + " 己被注销");
   // 取消对老师问题的监听
-  observer.remove(question, this.say)
-}
+  observer.remove(question, this.say);
+};
 
 // 教师类
-var Teacher = function() {};
+var Teacher = function () {};
 
 // 教师提问问题的方法
-Teacher.prototype.ask = function(question) {
-  console.log('问题是：' + question);
+Teacher.prototype.ask = function (question) {
+  console.log("问题是：" + question);
   // 发布提问消息
-  observer.fire(question)
-}
+  observer.fire(question);
+};
 ```

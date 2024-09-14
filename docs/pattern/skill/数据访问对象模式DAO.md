@@ -1,26 +1,25 @@
 # 数据访问对象模式 Data access object-DAO
 
-数据访问对象模式（Data access object-DAO: 抽象和封装对数据源的访问与存储,DAO通过对数据源链接的管理方便对数据的访问与存储。
+数据访问对象模式（Data access object-DAO: 抽象和封装对数据源的访问与存储,DAO 通过对数据源链接的管理方便对数据的访问与存储。
 
-存储数据库不同于服务器端关系型数据库,它是将数据保存在localStorage这个对象里。
+存储数据库不同于服务器端关系型数据库,它是将数据保存在 localStorage 这个对象里。
 
-localStorage相当于一个大容器,对于同一个站点,它里面根本没有分割库,所以别人使用localStorage的时候和你用的是一个,所以你应该将每次存储的数据字段前面添加前缀标识来‘分割’localStorage 存储。
+localStorage 相当于一个大容器,对于同一个站点,它里面根本没有分割库,所以别人使用 localStorage 的时候和你用的是一个,所以你应该将每次存储的数据字段前面添加前缀标识来‘分割’localStorage 存储。
 
-本地存储对数据的保存实际上是localStorage的一个字符串属性。
+本地存储对数据的保存实际上是 localStorage 的一个字符串属性。
 
 有时对于本地存储来说,了解他的存储时间是很有必要的,它能方便日后对数据的管理（如定期清除）,因此你可以添加一个时间戳,但对于每个人存储的数据内容不同,时间戳与将要存储的数据都是属性字符串,所以他们之间要设置一个拼接符。
 
-数据访问对象（DAO）模式即是对数据库的操作（如简单的CRUD创建、读取、更新、删除）进行封装,用户不必为操作数据库感到苦恼, DAO 己经为我们提供了简单而统一的操作接口。并且对于使用者来说,不必了解DAO内部操作是如何实现的,有时甚至不必了解数据库是如何操作的。
+数据访问对象（DAO）模式即是对数据库的操作（如简单的 CRUD 创建、读取、更新、删除）进行封装,用户不必为操作数据库感到苦恼, DAO 己经为我们提供了简单而统一的操作接口。并且对于使用者来说,不必了解 DAO 内部操作是如何实现的,有时甚至不必了解数据库是如何操作的。
 
-对于后端数据库来说（如MongoDB）,DAO对象甚至会保留对数据库的链接,这样我们每次操作数据库时不必一次次地向数据库发送链接请求。
+对于后端数据库来说（如 MongoDB）,DAO 对象甚至会保留对数据库的链接,这样我们每次操作数据库时不必一次次地向数据库发送链接请求。
 
-DAO 是一个对象,因此它封装了属性和方法,并通过这些属性与方法管理着数据库。因此有时为了实现需求我们还可以对DAO对象进行拓展。但是更佳实践是对DAO做一层试用于你自己的封装,这样在团队开发中不会影响到他人的使用。
+DAO 是一个对象,因此它封装了属性和方法,并通过这些属性与方法管理着数据库。因此有时为了实现需求我们还可以对 DAO 对象进行拓展。但是更佳实践是对 DAO 做一层试用于你自己的封装,这样在团队开发中不会影响到他人的使用。
 
 ## 应用场景
 
-- 封装本地数据库Localstorage操作
+- 封装本地数据库 Localstorage 操作
 - 封装数据库操作方法
-
 
 ### 封装本地数据库操作
 
@@ -34,8 +33,8 @@ var BaseLocalstorage = function (preId, timesign) {
   // 定义本地存储数据库前缀
   this.preId = preId;
   // 定义时间戳与存储数据之间的拼接符
-  this.timesign = timesign || '|-|';
-}
+  this.timesign = timesign || "|-|";
+};
 // 本地存储类原型方法
 BaseLocalstorage.prototype = {
   // 操作状态
@@ -43,7 +42,7 @@ BaseLocalstorage.prototype = {
     SUCCESS: 0, // 成功
     FAILURE: 1, // 失败
     OVERFLOW: 2, // 溢出
-    TIMEOUT: 3 // 过期
+    TIMEOUT: 3, // 过期
   },
 
   // 保存本地存储链接
@@ -86,7 +85,6 @@ BaseLocalstorage.prototype = {
     callback && callback.call(this, status, key, value);
   },
 
-
   /****
    * 获取数据
    * 参数 key: 数据字段标识
@@ -117,7 +115,7 @@ BaseLocalstorage.prototype = {
       // 获取失败则返回失败状态,数据结果为null
       result = {
         status: that.status.FAILURE,
-        value: null
+        value: null,
       };
       // 执行回调并返回
       callback && callback.call(this, result.status, result.value);
@@ -148,7 +146,7 @@ BaseLocalstorage.prototype = {
     // 设置结果
     result = {
       status: status,
-      value: value
+      value: value,
     };
     // 执行回调函数
     callback && callback.call(this, result.status, result.value);
@@ -171,74 +169,75 @@ BaseLocalstorage.prototype = {
 
     try {
       // 获取字段对应的数据
-      _value = this.storage.getItem(_key)
+      _value = this.storage.getItem(_key);
     } catch (e) {}
 
-    if(_value) {
+    if (_value) {
       try {
-        this.storage.removeItem(_key)
+        this.storage.removeItem(_key);
         _status = this.status.SUCCESS;
-      } catch(e) {}
+      } catch (e) {}
     }
 
     // 成功则返回真实的数据结果,否则返回空
-    cb && cb.call(this, _status, _status > 0
-      ? null
-      : _value.slice(_value.indexof(this.timesign) + this.timesign.length))
-  }
+    cb &&
+      cb.call(
+        this,
+        _status,
+        _status > 0
+          ? null
+          : _value.slice(_value.indexof(this.timesign) + this.timesign.length)
+      );
+  },
 };
 
-
-var Ls = new BaseLocalstorage('Ls__');
-Ls.set('a', 'xiao ming', function () {
- console.log(arguments);
+var Ls = new BaseLocalstorage("Ls__");
+Ls.set("a", "xiao ming", function () {
+  console.log(arguments);
 });
 // [0,"Ls__a", "xiao ming"]
 
-Ls.get('a', function () {
- console.log(arguments)
+Ls.get("a", function () {
+  console.log(arguments);
 });
 // [0, "xiao ming"]
 
-Ls.remove('a', function () {
- console.log(arguments)
+Ls.remove("a", function () {
+  console.log(arguments);
 });
 // [0, "xiao ming"]
 
-Ls.remove('a', function () {
- console.log(arguments)
+Ls.remove("a", function () {
+  console.log(arguments);
 });
 // [1, null]
 
-Ls.get('a', function () {
- console.log(arguments)
+Ls.get("a", function () {
+  console.log(arguments);
 });
 // [1, null]
-
-
 ```
 
 ### 封装数据库操作方法
 
 ```js
-
 // 在nodejs中写入配置项 config.js
 // 将配置数据输出
 module.exports = {
   // 数据库相关配置数据
   DB: {
-    db: 'demo', // 数据库名称
-    host: 'localhost', // 主机名
-    port: 27017 // 端口号
-  }
-}
+    db: "demo", // 数据库名称
+    host: "localhost", // 主机名
+    port: 27017, // 端口号
+  },
+};
 
 // 连接MongoDB
 /* db.js */
 // 引用mongodb模块
-var mongodb = require('mongodb');
+var mongodb = require("mongodb");
 // 引用配置模块的数据库配置信息
-var config = require('./config').DB;
+var config = require("./config").DB;
 
 // 创建数据库对象
 var d = new mongodb.Db(
@@ -247,159 +246,165 @@ var d = new mongodb.Db(
     config.host, // 主机名
     config.port, // 端口号
     {
-      auto_reconnect: true
+      auto_reconnect: true,
     } // 自动连接
-  ), {
-    safe: true
+  ),
+  {
+    safe: true,
   } // 安全模式
 );
 
 // 输出数据访问对象
-exports.DB = function () {}
+exports.DB = function () {};
 
 // 操作集合
 /**
-  * 打开数据库, 操作集合
-  * @param col 集合名
-  * @param fn 操作方法
-  **/
+ * 打开数据库, 操作集合
+ * @param col 集合名
+ * @param fn 操作方法
+ **/
 function connect(col, fn) {
   // 打开数据库
   d.open(function (err, db) {
-  // 打开数据库报错则抛出错误
-  if (err) {
-    throw err;
-  } else {
-    db.collection(col, function (err, col) {
-      // 操作集合报错则抛出错误
-      if (err) {
-        throw err;
-      } else {
-        // 执行操作
-        fn && fn(col, db);
-      }
-    });
-  }
+    // 打开数据库报错则抛出错误
+    if (err) {
+      throw err;
+    } else {
+      db.collection(col, function (err, col) {
+        // 操作集合报错则抛出错误
+        if (err) {
+          throw err;
+        } else {
+          // 执行操作
+          fn && fn(col, db);
+        }
+      });
+    }
   });
 }
 
 exports.DB = function (col) {
- return {
-  /****
+  return {
+    /****
   插入数据
   * @param data 插入数据项
   * @param success 操作成功回调函数
   * @param fail 操作失败回调函数
   **/
-  insert: function (data, success, fail) {
-   // 打开数据库操作col集合
-   connect(col, function (col, db) {
-    // 向集合中插入数据
-    col.insert(data, function (err, docs) {
-     // 失败,抛出插入错误
-     if (err)
-      fail && fail(err);
-     // 成功,执行成功回调函数
-     else
-      success && success(docs);
-     // 关闭数据库
-     db.close();
-    });
-   });
-  },
-  
-  /****
+    insert: function (data, success, fail) {
+      // 打开数据库操作col集合
+      connect(col, function (col, db) {
+        // 向集合中插入数据
+        col.insert(data, function (err, docs) {
+          // 失败,抛出插入错误
+          if (err) fail && fail(err);
+          // 成功,执行成功回调函数
+          else success && success(docs);
+          // 关闭数据库
+          db.close();
+        });
+      });
+    },
+
+    /****
   删除数据
   * @param data 删除数据项
   * @param success 成功回调
   * @param fail 失败回调
   **/
-  remove: function (data, success, fail) {
-   // 打开数据库操作col集合
-   connect(col, function (col, db) {
-    // 在集合中删除数据项
-    col.remove(data, function (err, len) {
-     if (err)
-      fail && fail(err);
-     else
-      success && success(len);
-     db.close();
-    });
-   });
-  },
-  
-  /**
-  * 更新数据
-  * @param con 筛选条件
-  * @param doc 更新数据项
-  * @param success 成功回调
-  * @param fail 失败回调
-  **/
-  update: function (con, doc, success, fail) {
-   connect(col, function (col, db) {
-    // 在集合中更新数据项
-    col.update(con, doc, function (err, len) {
-     if (err)
-      fail && fail(err);
-     else
-      success && success(len);
-     db.close();
-    })
-   });
-  },
-  
-  /****
+    remove: function (data, success, fail) {
+      // 打开数据库操作col集合
+      connect(col, function (col, db) {
+        // 在集合中删除数据项
+        col.remove(data, function (err, len) {
+          if (err) fail && fail(err);
+          else success && success(len);
+          db.close();
+        });
+      });
+    },
+
+    /**
+     * 更新数据
+     * @param con 筛选条件
+     * @param doc 更新数据项
+     * @param success 成功回调
+     * @param fail 失败回调
+     **/
+    update: function (con, doc, success, fail) {
+      connect(col, function (col, db) {
+        // 在集合中更新数据项
+        col.update(con, doc, function (err, len) {
+          if (err) fail && fail(err);
+          else success && success(len);
+          db.close();
+        });
+      });
+    },
+
+    /****
   查找数据
   * @param con 查找条件
   * @param success 成功回调
   * @param fail 失败回调
   **/
-  find: function (con, success, fail) {
-   connect(col, function (col, db) {
-    // 在集合中查找数据
-    col.find(con).toArray(function (err, docs) {
-     if (err)
-      fail && fail(err);
-     else
-      success && success(docs);
-     db.close();
-    });
-   });
-  }
- }
-}
+    find: function (con, success, fail) {
+      connect(col, function (col, db) {
+        // 在集合中查找数据
+        col.find(con).toArray(function (err, docs) {
+          if (err) fail && fail(err);
+          else success && success(docs);
+          db.close();
+        });
+      });
+    },
+  };
+};
 
 /*test.js*/
-var DB = require('./db').DB; // 引用数据访问对象模块
-var user = DB('user'); // 操作user集合
+var DB = require("./db").DB; // 引用数据访问对象模块
+var user = DB("user"); // 操作user集合
 
 // 向集合中插入—条数据
-user.insert({
- name: '小白',
- nick: '雨夜清荷'
-}, function (docs) {
- console.log(docs);
- // [{name: '小白', nick: '雨夜清荷', _id :54e956410017 a3fc06195be9}]（ id为数据项的索引值）
-});
+user.insert(
+  {
+    name: "小白",
+    nick: "雨夜清荷",
+  },
+  function (docs) {
+    console.log(docs);
+    // [{name: '小白', nick: '雨夜清荷', _id :54e956410017 a3fc06195be9}]（ id为数据项的索引值）
+  }
+);
 
-user.remove({
- name: '小白'
-}, function (len) {
- console.log(len); // 1（删除数据项长度）
-})
+user.remove(
+  {
+    name: "小白",
+  },
+  function (len) {
+    console.log(len); // 1（删除数据项长度）
+  }
+);
 
-user.update({
- name: '小白'
-}, {
- name: '小白',
- nick: '雨夜'
-}, function (len) {
- console.log(len); // 1
-})
+user.update(
+  {
+    name: "小白",
+  },
+  {
+    name: "小白",
+    nick: "雨夜",
+  },
+  function (len) {
+    console.log(len); // 1
+  }
+);
 
-user.find({
- name: '小白'
-}, function (doc) {
- console.log(doc) // [{name: '小白', nick: '雨夜清荷', _id :54e956410017a3fc06195be9}]
-});
+user.find(
+  {
+    name: "小白",
+  },
+  function (doc) {
+    console.log(doc); // [{name: '小白', nick: '雨夜清荷', _id :54e956410017a3fc06195be9}]
+  }
+);
 ```
