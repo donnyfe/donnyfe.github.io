@@ -6,7 +6,7 @@
 
 由此我们可以看出，原型对象更适合在创建复杂的对象时，对于那些需求一直在变化而导致对象结构不停地改变时，将那些比较稳定的属性与方法共用而提取的继承的实现。
 
-## 应用场景
+## 实例
 
 - 图片轮播
 
@@ -54,7 +54,9 @@ var fadeImg = new FadeLoopImg(
 );
 
 fadeImg.changeImage(); // FadeLoopImg changeImage function
+```
 
+```js
 // 图片轮播类
 var LoopImages = function (imgArr, container) {
   // 轮播图片数组

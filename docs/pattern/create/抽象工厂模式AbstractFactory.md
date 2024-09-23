@@ -2,13 +2,13 @@
 
 抽象工厂模式是设计模式中最抽象的一种，也是创建模式中唯一一种抽象化创建模式。该模式创建出的结果不是一个真实的对象实例，而是一个类簇，它制定了类的结构，这也就区别于简单工厂模式创建单一对象，工厂方法模式创建多类对象。当然由于 JavaScript 中不支持抽象化创建与虚拟方法，所以导致这种模式不能像其他面向对象语言中应用得那么广泛。
 
-## 应用场景
+## 实例
 
 ### 汽车抽象工厂
 
 ```js
 // 抽象工厂方法
-var VehicleFactory = function(subType, superType) {
+const VehicleFactory = function(subType, superType) {
   // 判断抽象工厂中是否有该抽象类
   if(typeof VehicleFactory[superType] === 'function') {
     // 缓存类
@@ -68,7 +68,7 @@ VehicleFactory.Truck.prototype = {
 }
 
 // 宝马汽车子类
-var BMW = function(price, speed) {
+const BMW = function(price, speed) {
   this.price = price;
   this.speed = speed;
 }
@@ -85,7 +85,7 @@ BMW.prototype.getspeed = function() {
 }
 
 // 兰博基尼汽车子类
-var Lamborghini = function(price, speed) {
+const Lamborghini = function(price, speed) {
   this.price = price;
   this.speed = speed;
 }
@@ -102,7 +102,7 @@ Lamborghini.prototype.getspeed = function() {
 }
 
 // 宇通汽车子类
-var YUToNG = function(price, passenger) {
+const YUToNG = function(price, passenger) {
   this.price = price;
   this.passenger = passenger;
 }
@@ -119,7 +119,7 @@ YUToNG.prototype.getPassengerNum = function() {
 }
 
 // 奔驰汽车子类
-var BenzTruck = function(price, trainLoad) {
+const BenzTruck = function(price, trainLoad) {
   this.price = price;
   this.trainLoad = trainLoad;
 }
@@ -135,7 +135,7 @@ BenzTruck.prototype.getTrainload = function() {
   return this.price;
 }
 
-var truck = new BenzTruck(1000000, 1000)；
+const truck = new BenzTruck(1000000, 1000)；
 console.log(truck.getPrice())；  // 1000000
 console.log(truck.type)；         // truck
 

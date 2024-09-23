@@ -29,7 +29,7 @@ export const webPattern = {
     "/pattern/behavior/观察者模式Observer.md",
     "/pattern/behavior/简单模板模式SimplateTemplate.md",
     "/pattern/behavior/状态模式State.md",
-    "/pattern/behavior/策略模式Stragtegy.md",
+    "/pattern/behavior/策略模式Strategy.md",
     "/pattern/behavior/模板方法模式TemplateMethod.md",
     "/pattern/behavior/访问者模式Visitor.md",
   ],

@@ -6,7 +6,7 @@
 
 JavaScript 中的适配器的应用，更多应用在对象之间，为了使对象可用，通常我们会将对象拆分并重新包装，这样我们就要了解适配对象的内部结构，这也是与外观模式的区别所在，当然适配器模式同样解决了对象之间的耦合度。包装的适配器代码增加了一些资源开销，当然这是微乎其微的。
 
-## 应用场景
+## 实例
 
 - 后端接口适配
 - 代码库适配
@@ -27,7 +27,5 @@ function Adapter(config){
   for(var i in defaultConfig){
     defaultConfig[i] = config[i] || defaultConfig[i]；
   }
-  // 或者 extend(adapter, config) 注：此时可能会多添加属性
-  // do things
 }
 ```

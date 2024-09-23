@@ -14,212 +14,201 @@
 
 - 命令模式是对一些操作的封装，这就造成每执行一次操作都要调用一次命令对象，增加了系统的复杂度。
 
-## 应用场景
+## 实例
+
+- 创建DOM视图
+- Canvas绘图
+
+### 创建DOM视图
 
 ```js
-// 模块实现模块
-var viewcommand = (function () {
-  var tpl = {
-      // 展示图片结构模板
-      product: [
-        "<div>",
-        '<img src="{#src#}"/>',
-        "<p>{#text#}</p>",
-        "</div>",
-      ].join(""),
-      // 展示标题结构模板
-      title: [
-        '<div class="title">',
-        '<div class="main">',
-        "<h2>{#title#}</h2>",
-        "<p>{#tips#}</p>",
-        "</div>",
-        "</div>",
-      ].join(""),
-    },
-    // 格式化字符串缓存字符串
-    html = "";
+let viewCommand = (function () {
+ let templates = {
+   // 图片结构模板
+   productTpl: `<div>
+      <img src="{{src}}"/>
+      <p>{{text}}</p>
+     </div>`,
+   // 标题结构模板
+   titleTpl: ` <div class="title">
+      <div class="main">
+       <h2>{{title}}</h2>
+       <p>{{content}}</p>
+      </div>
+     </div>`,
+  },
+  // 格式化字符串缓存字符串
+  html = ''
 
-  // 格式化字符串 如:'<div>{#content#}</div>'用{content:'demo'}替换后可得到字符串:'<div>demo</div>'
-  function formatestring(str, obj) {
-    // 替换'{#'与'#}'之间的字符串
-    return str.replace(/\{#(\w+)#\}/g, function (match, key) {
-      return obj[key];
-    });
+ // 格式化字符串 如:'<div>{{content}}</div>'用{content:'demo'}替换后可得到字符串:'<div>demo</div>'
+ const formatString = function (str, obj) {
+  return str.replace(/\{\{(\w+)\}\}/g, function (match, key) {
+   return obj[key]
+  })
+ }
+
+ // 方法集合
+ let actions = {
+  create: function (data, viewType) {
+   let tpl = templates[viewType]
+   // 解析数据 如果数据是—个数组
+   if (data.length) {
+    for (let i = 0, len = data.length; i < len; i++) {
+     // 将格式化之后的字符串缓存到html中
+     html += formatString(tpl, data[i])
+    }
+   } else {
+    // 直接格式化字符串缓存到html中
+    html += formatString(tpl, data)
+   }
+  },
+  // 展示方法
+  display: function (container, data, viewType) {
+   if (data) {
+    // 如果传入数据, 根据给定数据创建视图
+    this.create(data, viewType)
+   }
+   document.getElementById(container).innerHTML = html
+   // 展示后清空缓存的字符串
+   html = ''
+  },
+ }
+
+ // 命令执行器
+ const excutor = function (msg) {
+  // 解析命令，如果msg.param不是数组则将其转化为数组（apply方法要求第二个参数为数组）
+  msg.param = Array.isArray(msg.param) ? msg.param : [msg.param]
+  // actions内部调用的方法引用this，所以此处为保证作用域this执行,故传入actions
+  actions[msg.command].apply(actions, msg.param)
+ }
+
+ return excutor
+})()
+
+// 模块标题数据
+let titleData = { 
+  title: '夏日里的—片温馨', 
+  content: '暖暖的温情带给人们家的感受。' 
+  },
+ // 产品展示数据
+ productData = [
+  { src: '02.jpg', text: '绽放的桃花' },
+  { src: '03.jpg', text: '阳光下的温馨' },
+  { src: '04.jpg', text: '镜头前的绿色' },
+ ]
+
+viewCommand({
+ command: 'create',
+ param: [{ src: '01.jpg', text: '迎着朝阳的野菊花' }, 'productTpl'],
+})
+
+viewCommand({
+ command: 'display',
+ param: ['titleId', titleData, 'titleTpl'],
+})
+
+viewCommand({
+ command: 'display',
+ param: ['productId', productData, 'productTpl'],
+})
+
+```
+
+### Canvas绘图
+
+```js
+// 实现对象
+let canvasCommand = (function () {
+ let canvas = document.getElementById('canvasId'),
+  // canvas元素的上下文引用对象缓存在命令对象的内部
+  ctx = canvas.getContext('2d')
+
+ let actions = {
+  // 填充色彩
+  fillStyle: function (c) {
+   ctx.fillStyle = c
+  },
+  // 填充矩形
+  fillRect: function (x, y, width, height) {
+   ctx.fillRect(x, y, width, height)
+  },
+  // 描边色彩
+  strokeStyle: function (c) {
+   ctx.strokeStyle = c
+  },
+  // 描边矩形
+  strokeRect: function (x, y, width, height) {
+   ctx.strokeRect(x, y, width, height)
+  },
+  // 填充字体
+  fillText: function (text, x, y) {
+   ctx.fillText(text, x, y)
+  },
+  // 开启路径
+  beginPath: function () {
+   ctx.beginPath()
+  },
+  // 移动画笔
+  moveTo: function (x, y) {
+   ctx.moveTo(x, y)
+  },
+  // 画笔连线
+  lineTo: function (x, y) {
+   ctx.lineTo(x, y)
+  },
+  // 绘制弧线
+  arc: function (x, y, r, begin, end, dir) {
+   ctx.arc(x, y, r, begin, end, dir)
+  },
+  // 填充
+  fill: function () {
+   ctx.fill()
+   ctx.stroke()
+  },
+  // 描边
+  stroke: function () {
+   ctx.stroke()
+  },
+ }
+
+ // 命令执行器
+ const excutor = function (msg) {
+  if (!msg) return
+  // 如果命令是—个数组， 遍历执行多个命令
+  if (msg.length) {
+   for (let i = 0, len = msg.length; i < len; i++) {
+    // arguments.callee(msg[i]) // TypeError: 'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions
+    run(msg[i].command, msg[i].param)
+   }
+  } else {
+   run(msg.command, msg.param)
   }
 
-  // 方法集合
-  var Action = {
-    create: function (data, view) {
-      // 解析数据 如果数据是—个数组
-      if (data.length) {
-        // 遍历数组
-        for (var i = 0, len = data.length; i < len; i++) {
-          // 将格式化之后的字符串缓存到html中
-          html += formatestring(tpl[view], data[i]);
-        }
-      } else {
-        // 直接格式化字符串缓存到html中
-        html += formatestring(tpl[view], data);
-      }
-    },
-    // 展示方法
-    display: function (container, data, view) {
-      // 如果传入数据
-      if (data) {
-        // 根据给定数据创建视图
-        this.create(data, view);
-      }
-      // 展示模块
-      document.getElementById(container).innerHTML = html;
-      // 展示后清空缓存的字符串
-      html = "";
-    },
-  };
+  function run(command, param) {
+   // 如果msg.param不是—个数组，将其转化为数组，apply第二个参数要求格式
+   let params = Array.isArray(param) ? param : [param]
+   // actions内部调用的方法可能引用this，为保证作用域中this指向正确，故传入actions
+   actions[command].apply(actions, params)
+  }
+ }
 
-  // 命令接口
-  return function excute(msg) {
-    // 解析命令，如果msg.param不是数组则将其转化为数组（apply方法要求第二个参数为数组）
-    msg.param =
-      object.prototype.tostring.call(msg.param) === "[object Array]"
-        ? msg.param
-        : [msg.param];
-    // Action内部调用的方法引用this，所以此处为保证作用域this执行传入Action
-    Action[msg.command].apply(Action, msg.param);
-  };
-})();
+ return {
+  excute: excutor,
+ }
+})()
 
-// 产品展示数据
-var productData = [
-    {
-      src: "command/02.jpg",
-      text: "绽放的桃花",
-    },
-    {
-      src: "command/03.jpg",
-      text: "阳光下的温馨",
-    },
-    {
-      src: "command/04.jpg",
-      text: "镜头前的绿色",
-    },
-  ],
-  // 模块标题数据
-  titleData = {
-    title: "夏日里的—片温馨",
-    tips: "暖暖的温情带给人们家的感受。",
-  };
-
-viewcommand({
-  // 参数说明 方法 display
-  command: "display",
-  // 参数说明 param1 元素容器 param2 标题数据 param3 元素模板 详见display方法
-  param: ["title", titleData, "title"],
-});
-
-viewcommand({
-  command: "create",
-  // 详见 create 方法参数
-  param: [
-    {
-      src: "command/01.jpg",
-      text: "迎着朝阳的野菊花",
-    },
-    "product",
-  ],
-});
-
-viewcommand({
-  command: "display",
-  param: ["product", productData, "product"],
-});
-
-// 实现对象
-var canvascommand = (function () {
-  // 获取canvas
-  var canvas = document.getElementById("canvas"),
-    // canvas元素的上下文引用对象缓存在命令对象的内部
-    ctx = canvas.getcontext("2d");
-
-  // 内部方法对象
-  var Action = {
-    // 填充色彩
-    fillstyle: function (c) {
-      ctx.fillstyle = c;
-    },
-    // 填充矩形
-    fillRect: function (x, y, width, height) {
-      ctx.fillRect(x, y, width, height);
-    },
-    // 描边色彩
-    strokestyle: function (c) {
-      ctx.strokestyle = c;
-    },
-    // 描边矩形
-    strokeRect: function (x, y, width, height) {
-      ctx.strokeRect(x, y, width, height);
-    },
-    // 填充字体
-    fillText: function (text, x, y) {
-      ctx.fillText(text, x, y);
-    },
-    // 开启路径
-    beginPath: function () {
-      ctx.beginPath();
-    },
-    // 移动画笔触电
-    moveTo: function (x, y) {
-      ctx.moveTo(x, y);
-    },
-    // 画笔连线
-    lineTo: function (x, y) {
-      ctx.lineTo(x, y);
-    },
-    // 绘制弧线
-    arc: function (x, y, r, begin, end, dir) {
-      ctx.arc(x, y, r, begin, end, dir);
-    },
-    // 填充
-    fill: function () {
-      ctx.fill();
-      ctx.stroke();
-    },
-    // 描边
-    stroke: function () {},
-  };
-  return {
-    // 命令接口
-    excute: function (msg) {
-      // 如果设有指令返回
-      if (!msg) return;
-      // 如果命令是—个数组
-      if (msg.length) {
-        // 遍历执行多个命令
-        for (var i = 0, len = msg.length; i < len; i++)
-          arguments.callee(msg[i]);
-        // 执行—个命令
-      } else {
-        // 如果msg.param不是—个数组，将其转化为数组，apply第二个参数要求格式
-        msg.param =
-          object.prototype.tostring.call(msg.param) === "[object Array]"
-            ? msg.param
-            : [msg.param];
-
-        // Action内部调用的方法可能引用this，为保证作用域中this指向正确，故传入Action
-        Action[msg.command].apply(Action, msg.param);
-      }
-    },
-  };
-})();
-
-canvascommand.excute([
-  {
-    command: "fillstyle",
-    param: "red",
-  },
-  {
-    command: "fillRect",
-    param: [20, 20, 100, 100],
-  },
-]);
+canvasCommand.excute([
+ // 着色
+ { command: 'fillStyle', param: '#f00' },
+ // 绘制矩形
+ { command: 'fillRect', param: [20, 20, 50, 50] },
+ // 填充文字
+ { command: 'fillText', param: ['abc', 150, 150] },
+ // 描边
+ { command: 'beginPath', param: {} },
+ { command: 'moveTo', param: [100, 100] },
+ { command: 'lineTo', param: [120, 140] },
+ { command: 'lineTo', param: [150, 140] },
+ { command: 'stroke', param: {} },
+])
 ```
