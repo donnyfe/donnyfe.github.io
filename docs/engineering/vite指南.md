@@ -1,28 +1,33 @@
-# Vite5
+# Vite指南
 
-## Vite配置实践
-
-### 配置启动服务
+## Vite配置结构
 
 ```js
 {
-  server: {
-    host: "0.0.0.0",
-    port: 8000,
-    open: true,
-    https: false,
-    proxy: {
-      "/api/": {
-        target: VUE_APP_BASE_URL,
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    }
-  }
+  mode: '',
+  base: '',
+  plugins: [],
+  css: {},
+  resolve: {
+    alias: {},
+  },
+  server: {},
+  optimizeDeps: {},
+  build: {
+    rollupOptions: {
+      output: {}
+    },
+  },
 }
 ```
 
-### 配置查找别名
+## Vite常用插件
+
+待补充……
+
+## Vite配置实例
+
+### 查找别名
 
 - 数组形式
 
@@ -38,7 +43,6 @@
 
 ```js
 import { resolve } from 'path'
-
 const resolvePath = (path) => resolve(__dirname, path)
 
 {
@@ -50,18 +54,18 @@ const resolvePath = (path) => resolve(__dirname, path)
 }
 ```
 
-### 配置导入省略扩展名
+### 导入省略扩展名
 
 ```js
 {
   resolve: {
-    // 导入时想要省略的扩展名列表
-    extensions: ['.js', '.vue', '.json', '.scss', '.ts', '*'],
+    // import导入时想要省略的扩展名列表
+    extensions: ['.js', '.ts', '.vue', '.json', '.scss'],
   }
 }
 ```
 
-### 配置加载.env文件变量
+### 加载.env文件变量
 
 - [官方文档](https://vitejs.cn/vite3-cn/config/#async-config)
 
@@ -81,20 +85,22 @@ export default defineConfig(({ command, mode }) => {
 })
 ```
 
-### 配置打包移除console和debugger
-
-- 安装`terser`
+### 服务代理
 
 ```js
 {
-  build: {
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
+  server: {
+    host: "0.0.0.0",
+    port: 8000,
+    open: true,
+    https: false,
+    proxy: {
+      "/api/": {
+        target: VUE_APP_BASE_URL,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
-    },
+    }
   }
 }
 ```
@@ -190,22 +196,6 @@ const slots = useSlots()
 </script>
 ```
 
-### 配置CDN
-
-- 安装`vite-plugin-externals`插件
-
-```js
-import { viteExternalsPlugin } from 'vite-plugin-externals'
-
-{
-  plugins: [
-    viteExternalsPlugin({
-      vue: 'Vue'
-    }),
-  ]
-}
-```
-
 ### 配置图片转base64阈值
 
 ```js
@@ -213,25 +203,6 @@ import { viteExternalsPlugin } from 'vite-plugin-externals'
   build: {
     assetsInlineLimit: 4096 // 图片转 base64 编码的阈值
   }
-}
-```
-
-### 配置gzip压缩
-
-```js
-import viteCompression from "vite-plugin-compression";
-
-{
-  plugins: [
-    // gzip压缩 生产环境生成 .gz 文件
-    viteCompression({
-      verbose: true,
-      disable: false,
-      threshold: 10240,
-      algorithm: "gzip",
-      ext: ".gz",
-    })
-  ]
 }
 ```
 
@@ -299,7 +270,7 @@ import postcssImport from 'postcss-pxtorem'
 }
 ```
 
-### 配置样式全局变量
+### 引入样式全局变量
 
 ```js
 // vite.config.js
@@ -309,14 +280,15 @@ import { defineConfig } from 'vite'
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import '/src/assets/styles/variables.scss';` // 引入全局变量文件
+        // 引入样式全局变量文件
+        additionalData: `@import '/src/assets/styles/variables.scss';` 
       }
     }
   }
 }
 ```
 
-### 配置vconsole调试工具
+### vconsole调试工具
 
 ```js
 import { resolve } from 'path';
@@ -341,6 +313,8 @@ export default ({ mode }) => {
 }
 ```
 
+---
+
 ### 配置浏览器兼容
 
 - 安装`@vitejs/plugin-legacy`插件
@@ -360,7 +334,7 @@ export default defineConfig({
 
 ```
 
-### 配置打包输出文件
+### 代码打包拆包
 
 ```js
 {
@@ -387,9 +361,11 @@ export default defineConfig({
 }
 ```
 
-### 配置多页入口
+### MPA多页入口
 
-#### 方案一
+#### vite-plugin-mpa
+
+- 安装`vite-plugin-mpa`插件
 
 ```js
 import mpa from 'vite-plugin-mpa';
@@ -410,7 +386,9 @@ export default () => {
 });
 ```
 
-#### 方案二
+#### vite-plugin-html
+
+- 安装`vite-plugin-html`插件
 
 ```js
 import { defineConfig } from 'vite'
@@ -449,7 +427,11 @@ export default defineConfig({
 })
 ```
 
-#### 方案三
+#### glob
+
+使用`glob`插件自动匹配入口文件生成多页面配置。
+
+- 安装`glob`插件
 
 ```js
 import { resolve } from 'path';
@@ -472,6 +454,59 @@ export default ({ mode }) => {
         input: getEntry()
       },
     }
+  }
+}
+```
+
+### 配置gzip压缩
+
+```js
+import viteCompression from "vite-plugin-compression";
+
+{
+  plugins: [
+    // gzip压缩 生产环境生成 .gz 文件
+    viteCompression({
+      verbose: true,
+      disable: false,
+      threshold: 10240,
+      algorithm: "gzip",
+      ext: ".gz",
+    })
+  ]
+}
+```
+
+### 配置CDN
+
+- 安装`vite-plugin-externals`插件
+
+```js
+import { viteExternalsPlugin } from 'vite-plugin-externals'
+
+{
+  plugins: [
+    viteExternalsPlugin({
+      vue: 'Vue'
+    }),
+  ]
+}
+```
+
+### 打包移除console和debugger
+
+- 使用 `terser` 插件
+
+```js
+{
+  build: {
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
   }
 }
 ```
