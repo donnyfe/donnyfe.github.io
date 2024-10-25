@@ -22,7 +22,7 @@ git commit -m "$msg"
 # 推送到指定仓库
 # git remote add origin https://github.com/donnyfe/donnyfe.github.io.git
 
-# 强制推送覆盖到远程master仓库
-git push -u origin master
+# 推送覆盖到远程main分支
+git push -u origin main
 
 echo 'push success!'
