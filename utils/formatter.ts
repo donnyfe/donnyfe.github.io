@@ -29,3 +29,18 @@ export function formatter(routes) {
     }
   })
 };
+
+
+class DLinkedNode {
+	key: number
+	value: number
+	prev: DLinkedNode | null
+	next: DLinkedNode | null
+	constructor(key?: number, value?: number) {
+		this.key = key ?? 0
+		this.value = value ?? 0
+		this.prev = null
+		this.next = null
+	}
+}
+

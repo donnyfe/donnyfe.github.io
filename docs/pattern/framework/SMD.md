@@ -14,16 +14,18 @@
 
 ## 实例
 
-```js
+- 模块管理器与创建方法
 
-// 模块管理器与创建方法
+### 模块管理器与创建方法
+
+```js
 // 定义模块管理器单体对象
 var F = F || {};
-/****
-  定义模块方法（ 理论上, 模块方法应放在闭包中实现, 可以隐蔽内部信息, 这里我们为让读者能够看明白, 我们忽略此步骤）
+/**
+  定义模块方法（ 理论上, 模块方法应放在闭包中实现, 可以隐蔽内部信息, 为了能够看明白, 因此忽略此步骤）
 * @param str 模块路由
 * @param fn 模块方法
-**/
+*/
 F.define = function (str, fn) {
   // 解析模块路由
   var parts = str.split('.'),
@@ -200,13 +202,12 @@ F.module('localstorage', function (ls) {
 })());
 // 这里的module方法集模块创建方法于一身。在这个方法中要遍历所有依赖模块,并判断所有模块都存在才可执行回调函数,否则加载相应文件,直到文件加载完成才执行回调函数。
 
-/***
-创建或调用模块方法
-
+/**
+* 创建或调用模块方法
 * @param url 参数为模块url
 * @param deps 参数为依赖模块
 * @param callback 参数为模块主函数
-**/
+*/
 F.module = function (url, modDeps, modcallback) {
   // 将参数转化为数组
   var args = [].slice.call(arguments),
@@ -256,11 +257,11 @@ F.module = function (url, modDeps, modcallback) {
 }
 var modulecache = {},
   setModule = function (moduleName, params, callback) { },
-  /****
-  异步加载依赖模块所在文件
+  /**
+  * 异步加载依赖模块所在文件
   * @param moduleName 模块路径（ id）
   * @param callback 模块加载完成回调函数
-  **/
+  */
   loadModule = function (moduleName, callback) {
     // 依赖模块
     var _module;
@@ -304,12 +305,12 @@ var modulecache = {},
     _script.src = src; // 文件路径
     document.getElementsByTagName['head'](0).appendchild(_script); // 插入页面中
   }
-/****
-设置模块并执行模块构造函数
+/**
+* 设置模块并执行模块构造函数
 * @param moduleName 模块id名称
 * @param params 依赖模块
 * @param callback 模块构造函数
-**/
+*/
 setModule = function (moduleName, params, callback) {
   // 模块容器,模块文件加载完成回调函数
   var _module, fn;
@@ -360,8 +361,4 @@ F.module(['lib/event', 'lib/dom'], function (events, dom) {
     dom.html('demo', 'success');
   })
 });
-```
-
-```js
-
 ```

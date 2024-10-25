@@ -15,107 +15,106 @@
 ```js
 // 图片轮播类
 var LoopImages = function (imgArr, container) {
-  // 轮播图片数组
-  this.imagesArray = imgArr;
-  // 轮播图片容器
-  this.container = container;
-  // 创建轮播图片
-  this.createImage = function () {};
-  // 切换下—张图片
-  this.changeImage = function () {};
-};
+	// 轮播图片数组
+	this.imagesArray = imgArr
+	// 轮播图片容器
+	this.container = container
+	// 创建轮播图片
+	this.createImage = function () {}
+	// 切换下—张图片
+	this.changeImage = function () {}
+}
 
 // 上下滑动切换类
 var slideLoopImg = function (imgArr, container) {
-  // 构造函数继承图片轮播类
-  LoopImages.call(this, imgArr, container);
-  // 重写继承的切换下—张图片方法
-  this.changeImage = function () {
-    console.log("slideLoopImg changeImage function");
-  };
-};
+	// 构造函数继承图片轮播类
+	LoopImages.call(this, imgArr, container)
+	// 重写继承的切换下—张图片方法
+	this.changeImage = function () {
+		console.log('slideLoopImg changeImage function')
+	}
+}
 
 // 渐隐切换类
 var FadeLoopImg = function (imgArr, container, arrow) {
-  // 构造函数继承图片轮播类
-  LoopImages.call(this, imgArr, container);
-  // 切换箭头私有变量
-  this.arrow = arrow;
-  // 重写继承的切换下—张图片方法
-  this.changeImage = function () {
-    console.log("FadeLoopImg changeImage function");
-  };
-};
+	// 构造函数继承图片轮播类
+	LoopImages.call(this, imgArr, container)
+	// 切换箭头私有变量
+	this.arrow = arrow
+	// 重写继承的切换下—张图片方法
+	this.changeImage = function () {
+		console.log('FadeLoopImg changeImage function')
+	}
+}
 
-var fadeImg = new FadeLoopImg(
-  ["01.jpg", "02.jpg", "03.jpg", "04.jpg"],
-  "slide",
-  ["left.jpg", "right.jpg"]
-);
+var fadeImg = new FadeLoopImg(['01.jpg', '02.jpg', '03.jpg', '04.jpg'], 'slide', [
+	'left.jpg',
+	'right.jpg',
+])
 
-fadeImg.changeImage(); // FadeLoopImg changeImage function
+fadeImg.changeImage() // FadeLoopImg changeImage function
 ```
 
 ```js
 // 图片轮播类
 var LoopImages = function (imgArr, container) {
-  // 轮播图片数组
-  this.imagesArray = imgArr;
-  // 轮播图片容器
-  this.container = container;
-};
+	// 轮播图片数组
+	this.imagesArray = imgArr
+	// 轮播图片容器
+	this.container = container
+}
 
 LoopImages.prototype = {
-  // 创建轮播图片
-  createImage: function () {
-    console.log("LoopImages createImage function");
-  },
-  // 切换下—张图片
-  changeImage: function () {
-    console.log("LoopImages changeImage function");
-  },
-};
+	// 创建轮播图片
+	createImage: function () {
+		console.log('LoopImages createImage function')
+	},
+	// 切换下—张图片
+	changeImage: function () {
+		console.log('LoopImages changeImage function')
+	},
+}
 
 // 上下滑动切换类
 var slideLoopImg = function (imgArr, container) {
-  // 构造函数继承图片轮播类
-  LoopImages.call(this, imgArr, container);
-};
+	// 构造函数继承图片轮播类
+	LoopImages.call(this, imgArr, container)
+}
 
-slideLoopImg.prototype = new LoopImages();
+slideLoopImg.prototype = new LoopImages()
 
 // 重写继承的切换下—张图片方法
 slideLoopImg.prototype.changeImage = function () {
-  console.log("slideLoopImg changeImage function");
-};
+	console.log('slideLoopImg changeImage function')
+}
 
 // 渐隐切换类
 var FadeLoopImg = function (imgArr, container, arrow) {
-  LoopImages.call(this, imgArr, container);
-  // 切换箭头私有变量
-  this.arrow = arrow;
-};
+	LoopImages.call(this, imgArr, container)
+	// 切换箭头私有变量
+	this.arrow = arrow
+}
 
-FadeLoopImg.prototype = new LoopImages();
+FadeLoopImg.prototype = new LoopImages()
 
 FadeLoopImg.prototype.changeImage = function () {
-  console.log("FadeLoopImg changeImage function");
-};
+	console.log('FadeLoopImg changeImage function')
+}
 
 // 测试用例
 // slide
-console.log(fadeImg.container);
+console.log(fadeImg.container)
 // FadeLoopImg changeImage function
-fadeImg.changeImage();
+fadeImg.changeImage()
 
 LoopImages.prototype.getImageLength = function () {
-  return this.imagesArray.length;
-};
+	return this.imagesArray.length
+}
 
 FadeLoopImg.prototype.getcontainer = function () {
-  return this.container;
-};
+	return this.container
+}
 
-console.log(fadeImg.getImageLength()); // 4
-console.log(fadeImg.getcontainer()); //slide
+console.log(fadeImg.getImageLength()) // 4
+console.log(fadeImg.getcontainer()) //slide
 ```
