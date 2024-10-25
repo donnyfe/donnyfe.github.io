@@ -220,13 +220,13 @@ class LRUCache {
 
 - 缓存队列消费不及时。
 - 作用域未释放。
+- 直接将内存作为缓存的方案要十分慎重。除了限制缓存的大小外，另外要考虑的事情是，进程之间无法共享内存。如果在进程内使用缓存，这些缓存不可避免地有重复，对物理内存的使用是一种浪费。
 
-直接将内存作为缓存的方案要十分慎重。除了限制缓存的大小外，另外要考虑的事情是，进程之间无法共享内存。如果在进程内使用缓存，这些缓存不可避免地有重复，对物理内存的使用是一种浪费。
 如何使用大量缓存，目前比较好的解决方案是采用进程外的缓存，进程自身不存储状态。外部的缓存软件有着良好的缓存过期淘汰策略以及自有的内存管理，不影响Node进程的性能。
 
 将缓存转移到外部，减少常驻内存的对象的数量，让垃圾回收更高效。
-进程之间可以共享缓存
+
 
 外部缓存方案：
-Redis： <https://github.com/mranney/node_redis>
-Memcached： <https://github.com/3rd-Eden/node-memcached>
+- Redis： <https://github.com/mranney/node_redis>
+- Memcached： <https://github.com/3rd-Eden/node-memcached>
