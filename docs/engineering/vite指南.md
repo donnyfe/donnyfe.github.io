@@ -1,31 +1,6 @@
 # Vite指南
 
-## Vite配置结构
-
-```js
-{
-  mode: '',
-  base: '',
-  plugins: [],
-  css: {},
-  resolve: {
-    alias: {},
-  },
-  server: {},
-  optimizeDeps: {},
-  build: {
-    rollupOptions: {
-      output: {}
-    },
-  },
-}
-```
-
-## Vite常用插件
-
-待补充……
-
-## Vite配置实例
+## 开发阶段
 
 ### 查找别名
 
@@ -104,6 +79,7 @@ export default defineConfig(({ command, mode }) => {
   }
 }
 ```
+
 
 ### 配置VueAPI自动导入
 
@@ -313,26 +289,7 @@ export default ({ mode }) => {
 }
 ```
 
----
-
-### 配置浏览器兼容
-
-- 安装`@vitejs/plugin-legacy`插件
-
-```js
-// vite.config.js
-import legacy from '@vitejs/plugin-legacy'
-import { defineConfig } from 'vite'
-
-export default defineConfig({
-  plugins: [
-    legacy({
-      targets: ['defaults', 'not IE 11'],
-    }),
-  ],
-})
-
-```
+## 打包阶段
 
 ### 代码打包拆包
 
@@ -359,6 +316,24 @@ export default defineConfig({
     },
   }
 }
+```
+
+### 配置浏览器兼容
+
+- 安装`@vitejs/plugin-legacy`插件
+
+```js
+// vite.config.js
+import legacy from '@vitejs/plugin-legacy'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [
+    legacy({
+      targets: ['defaults', 'not IE 11'],
+    }),
+  ],
+})
 ```
 
 ### MPA多页入口
@@ -458,22 +433,22 @@ export default ({ mode }) => {
 }
 ```
 
-### 配置gzip压缩
+
+### 移除console和debugger
+
+- 使用 `terser` 插件
 
 ```js
-import viteCompression from "vite-plugin-compression";
-
 {
-  plugins: [
-    // gzip压缩 生产环境生成 .gz 文件
-    viteCompression({
-      verbose: true,
-      disable: false,
-      threshold: 10240,
-      algorithm: "gzip",
-      ext: ".gz",
-    })
-  ]
+  build: {
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
+  }
 }
 ```
 
@@ -493,20 +468,21 @@ import { viteExternalsPlugin } from 'vite-plugin-externals'
 }
 ```
 
-### 打包移除console和debugger
-
-- 使用 `terser` 插件
+### 配置gzip压缩
 
 ```js
+import viteCompression from "vite-plugin-compression";
+
 {
-  build: {
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
-  }
+  plugins: [
+    // gzip压缩 生产环境生成 .gz 文件
+    viteCompression({
+      verbose: true,
+      disable: false,
+      threshold: 10240,
+      algorithm: "gzip",
+      ext: ".gz",
+    })
+  ]
 }
 ```
