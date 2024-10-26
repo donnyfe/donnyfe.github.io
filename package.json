@@ -8,9 +8,9 @@
 	"license": "ISC",
 	"scripts": {
     "dev": "vitepress dev docs",
-    "build": "vitepress build docs",
-    "preview": "vitepress preview docs",
-    "push": "sh deploy.sh && node ./deploy.js"
+    "build": "vitepress build docs && sh deploy.sh && node ./deploy.js",
+    "push": "sh deploy.sh",
+    "preview": "vitepress preview docs"
   },
   "devDependencies": {
     "ssh2": "^1.16.0",
