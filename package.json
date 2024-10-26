@@ -8,7 +8,8 @@
 	"license": "ISC",
 	"scripts": {
     "dev": "vitepress dev docs",
-    "build": "vitepress build docs && node ./deploy.js",
+    "build": "vitepress build docs && npm run deploy",
+    "deploy": "node ./deploy.js",
     "push": "sh deploy.sh && npm run build",
     "preview": "vitepress preview docs"
   },

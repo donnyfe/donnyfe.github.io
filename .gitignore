@@ -10,6 +10,7 @@ scripts
 ndoe_modules
 docs/.vitepress/cache
 docs/.vitepress/dist
+docs/.vitepress/dist.tar.gz
 
 deploy.js
 deploy.sh
