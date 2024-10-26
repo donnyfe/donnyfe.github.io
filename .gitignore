@@ -11,3 +11,5 @@ ndoe_modules
 docs/.vitepress/cache
 docs/.vitepress/dist
 
+deploy.js
+deploy.sh
