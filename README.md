@@ -1,3 +1,3 @@
-# VitePress
+# 开发手册
 
-[官方文档](https://vitepress.dev/zh/guide/getting-started)
+待补充……
