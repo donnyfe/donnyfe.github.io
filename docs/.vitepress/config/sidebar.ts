@@ -709,39 +709,46 @@ export const sidebarConfig = {
   ],
   "/Performance/": [
     {
-      "text": "Performance",
+      "text": "Analyse",
       "items": [
         {
-          "text": "如何系统优化页面",
-          "link": "/Performance/如何系统优化页面.md"
-        },
+          "text": "性能指标",
+          "link": "/Performance/Analyse/性能指标.md"
+        }
+      ]
+    },
+    {
+      "text": "Builder",
+      "items": [
         {
-          "text": "性能优化",
-          "link": "/Performance/性能优化.md"
-        },
-        {
-          "text": "资源加载优化",
-          "link": "/Performance/资源加载优化.md"
-        },
+          "text": "Vite性能优化",
+          "link": "/Performance/Builder/Vite性能优化.md"
+        }
+      ]
+    },
+    {
+      "text": "Code",
+      "items": [
         {
           "text": "CSS优化",
-          "link": "/Performance/CSS优化.md"
+          "link": "/Performance/Code/CSS优化.md"
         },
         {
           "text": "HTML优化",
-          "link": "/Performance/HTML优化.md"
+          "link": "/Performance/Code/HTML优化.md"
         },
         {
           "text": "JS优化",
-          "link": "/Performance/JS优化.md"
-        },
+          "link": "/Performance/Code/JS优化.md"
+        }
+      ]
+    },
+    {
+      "text": "Resource",
+      "items": [
         {
-          "text": "README",
-          "link": "/Performance/README.md"
-        },
-        {
-          "text": "Vite性能优化",
-          "link": "/Performance/Vite性能优化.md"
+          "text": "资源加载优化",
+          "link": "/Performance/Resource/资源加载优化.md"
         }
       ]
     }

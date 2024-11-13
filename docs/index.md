@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "全栈开发手册"
-  text: "更多内容正在梳理中…"
+  text: "更多文档正在整理中…"
   tagline: 全栈 性能优化 设计模式 前端规范 前端安全
   actions:
     # - theme: brand
