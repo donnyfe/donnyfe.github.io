@@ -1,14 +1,14 @@
-# 4 MySQL 的 SQL 基础
+# MySQL 的 SQL 基础
 
-## 4.1 SQL 介绍
+## SQL 介绍
 
 - 结构化查询语言
 - 5.7 以后符合 SQL92 严格模式
 - 通过 sql_mode 参数来控制
 
-## 4.2 SQL 类型
+## SQL 类型
 
-### 4.2.1 mysql 客户端功能
+### mysql 客户端功能
 
 MySQL 客户端功能自带的功能，通过 help 命令查看
 
@@ -16,7 +16,7 @@ MySQL 客户端功能自带的功能，通过 help 命令查看
 help;
 ```
 
-### 4.2.2 服务端功能
+### 服务端功能
 
 MySQL 服务端功能，通过 help contents 命令查看
 
@@ -55,9 +55,9 @@ help Data Types
 - User-Defined Functions
 - Utility
 
-## 4.3 SQL 概念
+## SQL 概念
 
-### 4.3.1 sql_mode SQL 模式
+### sql_mode SQL 模式
 
 作用：规范 SQL 语句书写方式
 
@@ -76,7 +76,7 @@ select @@sql_mode;
 - ERROR_FOR_DIVISION_BY_ZERO,
 - NO_ENGINE_SUBSTITUTION
 
-### 4.3.2 字符集(charset)及校对规则(collation)
+### 字符集(charset)及校对规则(collation)
 
 #### 字符集
 
@@ -131,7 +131,7 @@ show collation;
 select ASCII('a');
 ```
 
-### 4.3.3 数据类型
+### 数据类型
 
 #### 数字类型：整数、小数
 
@@ -236,21 +236,21 @@ select length(n1) from t1;
 #### JSON 类型
 
 - JSON：JSON 类型
-### 4.3.4 约束
+### 约束
 
 - Primary Key：主键约束，作用：唯一，非空，每张表只能有一个主键，作为聚簇索引。
 - Not Null：非空约束，作用：必填，建议每个列都设置非空。
 - Unique Key：唯一约束，作用：必须不重复的值
 - Unsigned：非负数字
 
-### 4.3.5 其它属性
+### 其它属性
 
 - Default：默认值
 - comment：注释
 
-## 4.4 SQL 应用
+## SQL 应用
 
-### 4.4.1 client
+### client
 
 - `\?`：查看帮助
 - `\c`：结束上一条命令运行
@@ -259,7 +259,7 @@ select length(n1) from t1;
 - `source`： 导入 SQL 脚本，类似于<，数据备份常用
 - `system`：调用 linux 命令
 
-### 4.4.2 server
+### server
 
 #### DDL 数据库定义语言
 
@@ -595,12 +595,12 @@ select * from teacher join course;
 
 ```sh
 # 内连接示例
-select 
+select
   city.name as city_name,
   country.name as country_name,
   country.continent
-from city 
-join country 
+from city
+join country
 on city.countrycode = country.code
 where city.population > 1000000;
 ```
@@ -678,8 +678,8 @@ select name city_name from city; # AS 可省略
 - 表别名:给表起别名简化 SQL 语句
 
 ```sh
-select c.name, co.name 
+select c.name, co.name
 from city c
-join country co 
+join country co
 on c.countrycode = co.code;
 ```

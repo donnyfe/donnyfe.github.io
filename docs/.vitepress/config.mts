@@ -6,7 +6,7 @@ import sidebar from "./config/sidebar";
 export default ({ mode }) => {
   return defineConfig({
 		base: '/',
-		title: '开发手册',
+		title: '全栈开发手册',
 		description: 'A VitePress Site',
 		// Use git commit to get the timestamp
 		lastUpdated: false,

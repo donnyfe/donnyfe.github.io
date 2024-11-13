@@ -1,4 +1,4 @@
-# 3 MySQL基础管理
+# MySQL基础管理
 
 MySQL 基础管理主要分四个部分：
 
@@ -7,14 +7,14 @@ MySQL 基础管理主要分四个部分：
 - 重置密码
 - 连接管理
 
-## 3.1 用户管理
+## 用户管理
 
-### 3.1.1 用户的作用
+### 用户的作用
 
 - 登录 MySQL 数据库
 - 管理 MySQL 对象
 
-### 3.1.2 用户的定义
+### 用户的定义
 
 白名单：地址列表，运行白名单的 IP 登录 MySQL，管理 MySQL
 
@@ -22,7 +22,7 @@ MySQL 基础管理主要分四个部分：
 - `donny@'10.0.0.10'`：donny用户能够通过 10.0.0.10 远程登录 MySQL 服务器
 - `donny@'10.0.0.%`：donny用户能够通过 10.0.0.xx 远程登录 MySQL 服务器
 
-### 3.1.3 用户管理
+### 用户管理
 
 ```sh
 # 创建用户
@@ -58,27 +58,27 @@ alter user donny@'localhost' identified by '456';
 drop user donny@'localhost';
 ```
 
-### 3.1.4 用户登录
+### 用户登录
 
 ```sh
 # 格式：mysql -u[用户名] -p[密码]
 mysql -uroot -p123
 ```
 
-## 3.2 权限管理
+## 权限管理
 
-### 3.2.1 权限的作用
+### 权限的作用
 
 用户对数据库对象有哪些管理能力
 
-### 3.2.2 表现方式
+### 表现方式
 
 ```sh
 # 查看权限列表
 show privileges;
 ```
 
-### 3.2.3 授权、回收权限操作
+### 授权、回收权限操作
 
 8.0 以前授权语法：
 
@@ -174,7 +174,7 @@ revoke create on donny.* from donny@'10.0.0.0'
 
 
 
-## 3.3 MySQL 重置密码
+## MySQL 重置密码
 
 - 跳过授权表
 - 跳过 TCP/IP 连接
@@ -260,9 +260,9 @@ exit;
 
 
 
-# 3.4 MySQL 连接管理
+# MySQL 连接管理
 
-### 3.4.1 自带客户端
+###.1 自带客户端
 
 ##### mysql
 
@@ -318,19 +318,19 @@ Mysqldump 备份工具
 
 Mysqladmin 管理工具
 
-### 3.4.2 远程客户端程序
+### 远程客户端程序
 
 数据库客户端：
 - Navicat
 
-### 3.4.3 程序连接
+### 程序连接
 
 - node：npm install mysql2
 - python：pip3 install pymysql
 
-# 3.5 初始化配置
+# 初始化配置
 
-### 3.5.1 配置方式
+### 配置方式
 
 1、源码安装——>编译过程中设置初始化参数
 
@@ -338,7 +338,7 @@ Mysqladmin 管理工具
 
 3、启动脚本命令行——> mysqld_safe --skip-grant-tables --skip-networking
 
-### 3.5.2 配置文件应用
+###.2 配置文件应用
 
 （1）配置文件读取顺序
 
@@ -370,9 +370,9 @@ mysqld_safe --defaults-file=/opt/my.cnf
   - `mysqldump`
   - `client` 代表所有客户端
 
-# 3.6 MySQL 启动和关闭
+# MySQL 启动和关闭
 
-### 3.6.1 启动 MySQL
+### 启动 MySQL
 
 ```sh
 # 方式1
@@ -394,7 +394,7 @@ mysqld
 > --skip-networking
 > --defaults-file=/opt/my.cnf
 
-### 3.6.2 关闭 MySQL
+### 关闭 MySQL
 
 关闭 Mysql
 

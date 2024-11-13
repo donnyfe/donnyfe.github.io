@@ -1,18 +1,18 @@
-# 1 MySQL 安装运行及配置
+# MySQL 安装配置
 
-## 1.1 MySQL 安装
+## MySQL 安装
 
-### 1.1.1 客户端安装
+### 1. 客户端安装
 
 待补充……
 
-### 1.1.2 命令行工具安装
+### 2. 命令行工具安装
 
 #### homebrew
 
-homebrew 是macOS上的包管理工具，类似于Linux上的apt、yum。
+homebrew 是 macOS 上的包管理工具，类似于 Linux 上的 apt、yum。
 
-homebrew 安装方式：
+安装方式：
 
 ```sh
 # 安装
@@ -31,9 +31,9 @@ brew services stop mysql
 mysql -uroot root -p123
 ```
 
-### 1.1.3 Docker-Compose
+### 3. Docker-Compose
 
-#### 1.1.3.1 创建配置文件
+#### 创建配置文件
 
 docker-compose.yml 配置文件：
 
@@ -41,24 +41,24 @@ docker-compose.yml 配置文件：
 version: '3'
 services:
   mysql:
-    image: mysql:5.7                                # mysql镜像版本
-    container_name: mysql                           # 容器名称
-    command:                                        # 容器启动时执行的命令
+    image: mysql:5.7 # mysql镜像版本
+    container_name: mysql # 容器名称
+    command: # 容器启动时执行的命令
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_unicode_ci
-      --lower-case-table-names=1                    # 忽略数据表名大小写
-    restart: always                                 # 跟随docker的启动而启动
+      --lower-case-table-names=1 # 忽略数据表名大小写
+    restart: always # 跟随docker的启动而启动
     environment:
-      MYSQL_ROOT_PASSWORD: root                     # 设置root账号密码
+      MYSQL_ROOT_PASSWORD: root # 设置root账号密码
     ports:
-      - 3306:3306                                  # 端口映射
+      - 3306:3306 # 端口映射
     volumes:
-      - ./mysql/data:/var/lib/mysql                # 数据文件挂载
-      - ./mysql/conf.d:/etc/mysql/conf.d           # 配置文件挂载  
-      - ./mysql/log:/var/log/mysql                 # 日志文件挂载
+      - ./mysql/data:/var/lib/mysql # 数据文件挂载
+      - ./mysql/conf.d:/etc/mysql/conf.d # 配置文件挂载
+      - ./mysql/log:/var/log/mysql # 日志文件挂载
 ```
 
-#### 1.1.3.2 创建挂载目录
+#### 创建挂载目录
 
 ```sh
 mkdir -p ./mysql/data \
@@ -66,7 +66,7 @@ mkdir -p ./mysql/data \
         ./mysql/log
 ```
 
-#### 1.1.3.3 启动服务
+#### 启动服务
 
 ```sh
 # 启动
@@ -79,7 +79,7 @@ docker-compose ps
 docker-compose logs mysql
 ```
 
-#### 1.1.3.4 连接测试
+#### 连接测试
 
 ```sh
 # 进入容器
@@ -93,7 +93,7 @@ mysql -uroot -p
 show databases;
 ```
 
-### 1.1.4 docker
+### 4. docker
 
 ```sh
 # 查找镜像
@@ -103,9 +103,9 @@ docker search mysql
 docker pull mysql
 ```
 
-## 1.2 MySQL 启动运行
+## MySQL 启动运行
 
-### 1.2.1 查看版本
+### 查看版本
 
 ```sh
 mysql -V
@@ -115,19 +115,18 @@ mysql --version
 select version();
 ```
 
-### 1.2.2 查看字符集
+### 查看字符集
 
 ```sh
 # 查看字符集
 show variables like "char%";
 ```
 
-### 1.2.3 修改配置
+### 修改配置
 
 1. 进入目录/etc/mysql/my.cnf
 2. 在`client`和`mysqld`字段下面均添加 `character-set-server=utf8`、`collation-server=utf8_general_ci`
 3. 重启服务
-
 
 变量：
 
@@ -138,7 +137,7 @@ show variables like "char%";
 - character_set_database： 当前选中数据库的默认字符集
 - character_set_system： 系统元数据(字段名等)字符集
 
-Docker-compose配置:
+Docker-compose 配置:
 
 ```yaml
 mysql:
@@ -161,10 +160,9 @@ mysql:
   ]
 ```
 
+## MySQL 启动和关闭
 
-## 1.3 MySQL 启动和关闭
-
-### 1.3.1 启动 MySQL
+### 启动 MySQL
 
 ```sh
 # 方式1
@@ -186,7 +184,7 @@ mysqld
 > --skip-networking
 > --defaults-file=/opt/my.cnf
 
-### 1.3.2 关闭 MySQL
+### 关闭 MySQL
 
 关闭 Mysql
 
@@ -213,15 +211,15 @@ xxxx/mysqld \
 --basedir=/app/database/mysql180
 ```
 
-## 1.4 初始化配置
+## MySQL 配置
 
-### 1.4.1 配置方式
+### 配置方式
 
 1. 源码安装 ——> 编译过程中设置初始化参数
 2. 配置文件 ——> 数据库启动之前，设定配置文件参数（/etc/my.cnf）。定制 mysql 配置功能
 3. 启动脚本命令行 ——> mysqld_safe --skip-grant-tables --skip-networking
 
-### 1.4.2 配置文件应用
+### 配置文件应用
 
 #### （1）配置文件读取顺序
 
@@ -244,6 +242,7 @@ mysqld_safe --defaults-file=/opt/my.cnf
 标签：用来区分不同程序的参数，有：
 
 - 服务器端标签：负责数据库服务端运行参数设定
+
   - `mysqld`
   - `mysqld_safe`
   - `server` 代表所有服务端
@@ -257,7 +256,7 @@ mysqld_safe --defaults-file=/opt/my.cnf
 
 （3）配置文件模板说明
 
-以下是一个生产环境下的MySQL配置文件(my.cnf)模板及说明:
+以下是一个生产环境下的 MySQL 配置文件(my.cnf)模板及说明:
 
 ```sh
 [client]
@@ -283,7 +282,7 @@ init_connect = 'SET NAMES utf8mb4'
 
 # 连接设置
 max_connections = 1000            # 最大连接数
-max_connect_errors = 1000         # 最大错误连接数  
+max_connect_errors = 1000         # 最大错误连接数
 wait_timeout = 600               # 非交互连接超时时间
 interactive_timeout = 600        # 交互连接超时时间
 

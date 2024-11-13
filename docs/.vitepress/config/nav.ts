@@ -2,8 +2,8 @@ export default [
 	{
 		text: '基础',
 		items: [
-			{ text: 'JS原理', link: '/JS/README' },
-			{ text: 'JS实践', link: '/JS/README' },
+			{ text: 'JavaScript 原理', link: '/JSCore/README' },
+			{ text: 'JavaScript 实践', link: '/JSPractice/README' },
 		],
 	},
 	{
@@ -27,7 +27,7 @@ export default [
 	{
 		text: '全栈系列',
 		items: [
-			{ text: 'MySQL', link: '/Mysql/README' },
+			{ text: 'MySQL', link: '/Mysql/P0README' },
 			{ text: 'Nginx', link: '/Nginx/Nginx' },
 		],
 	},

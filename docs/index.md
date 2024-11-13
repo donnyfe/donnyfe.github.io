@@ -3,40 +3,46 @@
 layout: home
 
 hero:
-  name: "开发手册"
-  text:
-  tagline:
+  name: "全栈开发手册"
+  text: "更多内容正在梳理中…"
+  tagline: 全栈 性能优化 设计模式 前端规范 前端安全
   actions:
+    # - theme: brand
+    #   text: 开始阅读
+    #   link: /guide/
+    # - theme: alt
+    #   text: 在GitHub上查看
+    #   link: https://github.com/你的仓库地址
 
 features:
   - title: 数据结构与算法
-    details: 关于数据结构与算法的笔记
-    link: /algorithm/README
+    details: 提升问题解决能力
+    link: /Algorithm/README
     linkText: 前往阅读
 
   - title: 设计模式
-    details: 关于设计模式的笔记
-    link: /pattern/README
+    details: 提升代码质量
+    link: /Pattern/README
     linkText: 前往阅读
 
   - title: 前端规范
-    details:
-    link: /style/HTML规范
+    details: 提升代码质量
+    link: /Style/HTML规范
     linkText: 前往阅读
 
   - title: 前端安全
-    details: 关于前端安全的笔记
-    link: /safe/同源策略
+    details: 提升应用安全
+    link: /Safe/同源策略
     linkText: 前往阅读
 
   - title: 前端性能优化
-    details: 关于性能优化的笔记
-    link: /performance/README
+    details: 提升用户体验
+    link: /Performance/README
     linkText: 前往阅读
 
-  - title: 全链路性能优化
-    details: 关于性能优化的笔记
-    link: /performance-geek/README
+  - title: Nginx
+    details: 提升应用性能
+    link: /Nginx/README
     linkText: 前往阅读
 ---
 

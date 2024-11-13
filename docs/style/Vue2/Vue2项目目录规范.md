@@ -40,7 +40,7 @@ src                                  源码目录
 |   |-- employee                             employee模块
 ```
 
-### 1) api 目录
+### 1. api 目录
 
 文件、变量命名要与后端保持一致。
 此目录对应后端 API 接口，按照后端一个 controller 一个 api js 文件。若项目较大时，可以按照业务划分子目录，并与后端保持一致。
@@ -74,7 +74,7 @@ javascript  // 添加员工
    },
 ```
 
-### 2) assets 目录
+### 2. assets 目录
 
 assets 为静态资源，里面存放 images, styles, icons 等静态资源，静态资源命名格式为 kebab-case
 
@@ -87,7 +87,7 @@ assets 为静态资源，里面存放 images, styles, icons 等静态资源，�
 |-- styles
 ```
 
-### 3) components 目录
+### 3. components 目录
 
 此目录应按照组件进行目录划分，目录命名为 KebabCase，组件命名规则也为 KebabCase
 
@@ -102,7 +102,7 @@ assets 为静态资源，里面存放 images, styles, icons 等静态资源，�
 |-- kebab-case
 ```
 
-### 4) constants 目录
+### 4. constants 目录
 
 此目录存放项目所有常量，如果常量在 vue 中使用，请使用 vue-enum 插件[(阅读文档)](https://github.com/1024-lab/vue-enum#readme)
 目录结构：
@@ -155,13 +155,13 @@ export default {
 };
 ```
 
-### 5) router 与 store 目录
+### 5. router 与 store 目录
 
 这两个目录一定要将业务进行拆分，不能放到一个 js 文件里。
 router 尽量按照 views 中的结构保持一致
 store 按照业务进行拆分不同的 js 文件
 
-### 6) views 目录
+### 6. views 目录
 
 命名要与后端、router、api 等保持一致
 components 中组件要使用 PascalCase 规则
@@ -194,10 +194,10 @@ vue 文件的 data, 非常见单词要加注释
 
 ## 其他
 
-### 1) 尽量不要手动操作 DOM
+### 1. 尽量不要手动操作 DOM
 
 因使用 vue 框架，所以在项目开发中尽量使用 vue 的数据驱动更新 DOM，尽量（不到万不得已）不要手动操作 DOM，包括：增删改 dom 元素、以及更改样式、添加事件等。
 
-### 2) 删除无用代码
+### 2. 删除无用代码
 
 因使用了 git/svn 等代码版本工具，对于无用代码必须及时删除，例如：一些调试的 console 语句、无用的弃用功能代码。

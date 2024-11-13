@@ -230,37 +230,48 @@ export const sidebarConfig = {
       ]
     }
   ],
-  "/JS/": [
+  "/JSCore/": [
+    {
+      "text": "JSCore",
+      "items": [
+        {
+          "text": "README",
+          "link": "/JSCore/README.md"
+        }
+      ]
+    }
+  ],
+  "/JSPractice/": [
     {
       "text": "Array",
       "items": [
         {
           "text": "数组扁平",
-          "link": "/JS/Array/数组扁平.md"
+          "link": "/JSPractice/Array/数组扁平.md"
         },
         {
           "text": "数组排序",
-          "link": "/JS/Array/数组排序.md"
+          "link": "/JSPractice/Array/数组排序.md"
         },
         {
           "text": "数组判断方法总结",
-          "link": "/JS/Array/数组判断方法总结.md"
+          "link": "/JSPractice/Array/数组判断方法总结.md"
         },
         {
           "text": "数组求值",
-          "link": "/JS/Array/数组求值.md"
+          "link": "/JSPractice/Array/数组求值.md"
         },
         {
           "text": "数组去重",
-          "link": "/JS/Array/数组去重.md"
+          "link": "/JSPractice/Array/数组去重.md"
         },
         {
           "text": "数组相关技术",
-          "link": "/JS/Array/数组相关技术.md"
+          "link": "/JSPractice/Array/数组相关技术.md"
         },
         {
           "text": "数组转换",
-          "link": "/JS/Array/数组转换.md"
+          "link": "/JSPractice/Array/数组转换.md"
         }
       ]
     },
@@ -269,7 +280,7 @@ export const sidebarConfig = {
       "items": [
         {
           "text": "浏览器相关技术",
-          "link": "/JS/Browser/浏览器相关技术.md"
+          "link": "/JSPractice/Browser/浏览器相关技术.md"
         }
       ]
     },
@@ -278,32 +289,28 @@ export const sidebarConfig = {
       "items": [
         {
           "text": "颜色相关技术",
-          "link": "/JS/Color/颜色相关技术.md"
+          "link": "/JSPractice/Color/颜色相关技术.md"
         }
       ]
-    },
-    {
-      "text": "Core",
-      "items": []
     },
     {
       "text": "DOM",
       "items": [
         {
           "text": "DOM类名操作",
-          "link": "/JS/DOM/DOM类名操作.md"
+          "link": "/JSPractice/DOM/DOM类名操作.md"
         },
         {
           "text": "DOM事件操作",
-          "link": "/JS/DOM/DOM事件操作.md"
+          "link": "/JSPractice/DOM/DOM事件操作.md"
         },
         {
           "text": "DOM样式操作",
-          "link": "/JS/DOM/DOM样式操作.md"
+          "link": "/JSPractice/DOM/DOM样式操作.md"
         },
         {
           "text": "DOM元素操作",
-          "link": "/JS/DOM/DOM元素操作.md"
+          "link": "/JSPractice/DOM/DOM元素操作.md"
         }
       ]
     },
@@ -312,7 +319,7 @@ export const sidebarConfig = {
       "items": [
         {
           "text": "日期相关技术",
-          "link": "/JS/Date/日期相关技术.md"
+          "link": "/JSPractice/Date/日期相关技术.md"
         }
       ]
     },
@@ -321,7 +328,7 @@ export const sidebarConfig = {
       "items": [
         {
           "text": "编解码相关技术",
-          "link": "/JS/Encode/编解码相关技术.md"
+          "link": "/JSPractice/Encode/编解码相关技术.md"
         }
       ]
     },
@@ -330,7 +337,7 @@ export const sidebarConfig = {
       "items": [
         {
           "text": "函数相关技术",
-          "link": "/JS/Function/函数相关技术.md"
+          "link": "/JSPractice/Function/函数相关技术.md"
         }
       ]
     },
@@ -339,7 +346,7 @@ export const sidebarConfig = {
       "items": [
         {
           "text": "验证数据类型",
-          "link": "/JS/Judge/验证数据类型.md"
+          "link": "/JSPractice/Judge/验证数据类型.md"
         }
       ]
     },
@@ -348,7 +355,7 @@ export const sidebarConfig = {
       "items": [
         {
           "text": "HTTP相关技术",
-          "link": "/JS/Network/HTTP相关技术.md"
+          "link": "/JSPractice/Network/HTTP相关技术.md"
         }
       ]
     },
@@ -357,7 +364,7 @@ export const sidebarConfig = {
       "items": [
         {
           "text": "数值相关技术",
-          "link": "/JS/Number/数值相关技术.md"
+          "link": "/JSPractice/Number/数值相关技术.md"
         }
       ]
     },
@@ -366,15 +373,15 @@ export const sidebarConfig = {
       "items": [
         {
           "text": "对象浅拷贝",
-          "link": "/JS/Object/对象浅拷贝.md"
+          "link": "/JSPractice/Object/对象浅拷贝.md"
         },
         {
           "text": "对象深拷贝",
-          "link": "/JS/Object/对象深拷贝.md"
+          "link": "/JSPractice/Object/对象深拷贝.md"
         },
         {
           "text": "对象相关技术",
-          "link": "/JS/Object/对象相关技术.md"
+          "link": "/JSPractice/Object/对象相关技术.md"
         }
       ]
     },
@@ -383,7 +390,7 @@ export const sidebarConfig = {
       "items": [
         {
           "text": "其它技术",
-          "link": "/JS/Other/其它技术.md"
+          "link": "/JSPractice/Other/其它技术.md"
         }
       ]
     },
@@ -392,7 +399,7 @@ export const sidebarConfig = {
       "items": [
         {
           "text": "验证设备环境",
-          "link": "/JS/Sniff/验证设备环境.md"
+          "link": "/JSPractice/Sniff/验证设备环境.md"
         }
       ]
     },
@@ -401,7 +408,7 @@ export const sidebarConfig = {
       "items": [
         {
           "text": "字符串相关技术",
-          "link": "/JS/String/字符串相关技术.md"
+          "link": "/JSPractice/String/字符串相关技术.md"
         }
       ]
     },
@@ -410,7 +417,7 @@ export const sidebarConfig = {
       "items": [
         {
           "text": "验证业务信息",
-          "link": "/JS/Validate/验证业务信息.md"
+          "link": "/JSPractice/Validate/验证业务信息.md"
         }
       ]
     }
@@ -420,24 +427,24 @@ export const sidebarConfig = {
       "text": "Mysql",
       "items": [
         {
-          "text": "MySQL安装运行及配置",
-          "link": "/Mysql/MySQL安装运行及配置.md"
+          "text": "P0README",
+          "link": "/Mysql/P0README.md"
         },
         {
-          "text": "MySQL的体系结构",
-          "link": "/Mysql/MySQL的体系结构.md"
+          "text": "P1MySQL的体系结构",
+          "link": "/Mysql/P1MySQL的体系结构.md"
         },
         {
-          "text": "MySQL的SQL基础",
-          "link": "/Mysql/MySQL的SQL基础.md"
+          "text": "P2MySQL安装运行及配置",
+          "link": "/Mysql/P2MySQL安装运行及配置.md"
         },
         {
-          "text": "MySQL基础管理",
-          "link": "/Mysql/MySQL基础管理.md"
+          "text": "P3MySQL基础管理",
+          "link": "/Mysql/P3MySQL基础管理.md"
         },
         {
-          "text": "README",
-          "link": "/Mysql/README.md"
+          "text": "P4MySQL的SQL基础",
+          "link": "/Mysql/P4MySQL的SQL基础.md"
         }
       ]
     }
@@ -1007,6 +1014,17 @@ export const sidebarConfig = {
         {
           "text": "Vue3编码基础",
           "link": "/Style/Vue3/Vue3编码基础.md"
+        }
+      ]
+    }
+  ],
+  "/Vue3/": [
+    {
+      "text": "Vue3",
+      "items": [
+        {
+          "text": "README",
+          "link": "/Vue3/README.md"
         }
       ]
     }

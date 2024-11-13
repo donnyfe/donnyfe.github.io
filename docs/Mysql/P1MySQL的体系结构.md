@@ -1,6 +1,6 @@
-# 2 MySQL 体系结构
+# MySQL 体系结构
 
-## 2.1 MySQL 客户端/服务器工作模型（C/S）
+## MySQL 客户端/服务器工作模型（C/S）
 
 ### 本地 socket 连接方式
 
@@ -29,19 +29,19 @@ mysql -h <host> -P <port> -u <user> -p<password>
 mysql -h 127.0.0.1 -P 3306 -u root -pMysql123
 ```
 
-## 2.2 实例
+## 实例
 
 服务器端：
 - 实例组成：mysqld 进程 + 工作线程 + 预分配的内存结构
 - 数据管理、权限验证、SQL 执行等
 - 一个实例可以管理多个数据库
 
-## 2.3 MySQL 的程序结构/工作原理
-
+## MySQL 的程序结构/工作原理
 
 MySQL 采用三层架构:
 
 ### Server 层
+
 1. 连接层功能:
    - 提供连接协议(socket、TCP/IP)
    - 用户认证与授权
@@ -61,6 +61,7 @@ MySQL 采用三层架构:
 ### 存储引擎层
 
 与磁盘进行交互，负责数据存储和提取,支持多种存储引擎(InnoDB、MyISAM等),存储结构为:
+
 - 段(表):由多个区组成
 - 区(簇):默认 1MB,连续 64 个页
 - 页:默认 16KB，连续的 4 个 OS block，最小 I/O 单元
@@ -85,7 +86,7 @@ select user,host from mysql.user;
 ```
 
 
-## 2.4 MySQL 的逻辑结构
+## MySQL 的逻辑结构
 
 自上而下的层次结构:
 - 数据库(Database):
@@ -114,7 +115,7 @@ show tables;
 desc table_name;
 ```
 
-## 2.5 MySQL 的物理存储结构
+## MySQL 的物理存储结构
 
 存储引擎层采用分层存储:
 - 段(Segment):表空间的组成单位，一个表（段），可以由 1 个或多个区构成
@@ -123,7 +124,7 @@ desc table_name;
 - 行(Row):实际存储的数据记录
 
 
-## 2.6 MySQL 性能优化重点
+## MySQL 性能优化重点
 
 核心优化方向:
 1. 索引优化:
@@ -141,7 +142,7 @@ desc table_name;
    - 并发参数调优
    - 日志参数调优
 
-## 2.7 相关技术
+## 相关技术
 
 - NoSQL 数据库:
   - MongoDB:文档数据库
