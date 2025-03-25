@@ -1,0 +1,1 @@
+import{_ as s,c as e,o,ag as l}from"./chunks/framework.DPDPlp3K.js";const u=JSON.parse('{"title":"页面安全策略","description":"","frontmatter":{},"headers":[],"relativePath":"safe/同源策略.md","filePath":"safe/同源策略.md"}'),t={name:"safe/同源策略.md"};function n(p,a,i,r,c,h){return o(),e("div",null,a[0]||(a[0]=[l("",37)]))}const S=s(t,[["render",n]]);export{u as __pageData,S as default};

@@ -1,3 +1,0 @@
-# 控制反转 IoC-Inversion of Control
-
-待补充……

@@ -1,3 +1,0 @@
-# 异步模块模式 AMD(Async Module Definition)
-
-待补充……
