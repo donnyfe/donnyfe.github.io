@@ -1,12 +1,12 @@
-import { UserConfigExport, defineConfig } from "vitepress";
-import nav from "./config/nav";
-import sidebar from "./config/sidebar";
+import { defineConfig } from 'vitepress'
+import nav from './config/nav'
+import sidebar from './config/sidebar'
 
 // https://vitepress.dev/reference/site-config
 export default ({ mode }) => {
-  return defineConfig({
+	return defineConfig({
 		base: '/',
-		title: '全栈开发手册',
+		title: '开发笔记',
 		description: 'A VitePress Site',
 		// Use git commit to get the timestamp
 		lastUpdated: false,
@@ -30,7 +30,7 @@ export default ({ mode }) => {
 			// 页脚
 			footer: {
 				message: 'Released under the MIT License.',
-				copyright: 'Copyright © 2024-present',
+				copyright: 'Copyright © 2025-present',
 			},
 			docFooter: {
 				prev: '上一页',
@@ -44,4 +44,4 @@ export default ({ mode }) => {
 			lineNumbers: false,
 		},
 	})
-};
+}

@@ -8,8 +8,10 @@
 
 ndoe_modules
 docs/.vitepress/cache
-docs/.vitepress/dist
+# docs/.vitepress/dist
 docs/.vitepress/dist.tar.gz
+docs
+scripts
 
 .env
 .tmp

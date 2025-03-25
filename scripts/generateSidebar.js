@@ -2,18 +2,18 @@ import { readdirSync, statSync, writeFileSync, mkdirSync } from 'fs'
 import { join, dirname } from 'path'
 import chokidar from 'chokidar'
 
-let highlighter = null
+// let highlighter = null
 
-async function getHighlighter() {
-	if (!highlighter) {
-		const { getHighlighter } = await import('shiki')
-		highlighter = await getHighlighter({
-			theme: 'nord',
-		})
-	}
-	return highlighter
-}
-getHighlighter()
+// async function getHighlighter() {
+// 	if (!highlighter) {
+// 		const { getHighlighter } = await import('shiki')
+// 		highlighter = await getHighlighter({
+// 			theme: 'nord',
+// 		})
+// 	}
+// 	return highlighter
+// }
+// getHighlighter()
 
 function generateSidebar(options) {
 	const { rootPath, outputPath, include, exclude } = options
@@ -72,11 +72,12 @@ function generateSidebar(options) {
 	}
 
 	// 生成配置文件
-	const fileContent = `// 此文件由脚本自动生成，请勿手动修改
-export const sidebarConfig = ${JSON.stringify(sidebar, null, 2)} as const
+	const fileContent = `
+		// 此文件由脚本自动生成，请勿手动修改
+		export const sidebarConfig = ${JSON.stringify(sidebar, null, 2)} as const
 
-export default sidebarConfig
-`
+		export default sidebarConfig
+	`
 
 	// 写入文件
 	try {
@@ -89,10 +90,10 @@ export default sidebarConfig
 	}
 
 	// 在生成完成后释放 highlighter
-	if (highlighter) {
-		highlighter.dispose()
-		highlighter = null
-	}
+	// if (highlighter) {
+	// 	highlighter.dispose()
+	// 	highlighter = null
+	// }
 
 	return sidebar
 }
@@ -155,7 +156,7 @@ async function watchAndGenerate(options) {
 // 使用示例
 const options = {
 	rootPath: './docs', // 文档根目录路径
-	outputPath: './docs/.vitepress/config/sidebar.ts', // 输出文件路径
+	outputPath: './docs/.vitepress/config/pre-sidebar.ts', // 输出文件路径
 	include: [], // 只包含这些目录
 	exclude: [
 		// 排除这些目录
